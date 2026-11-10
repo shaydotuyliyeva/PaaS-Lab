@@ -1,42 +1,55 @@
 
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaaS laboratoriya ishi</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>PaaS infratuzilmasi</h1>
+{% block title %}Bosh sahifa | Student Manager{% endblock %}
 
-    <p>Bu web-ilova PaaS platformasida joylashtiriladi.</p>
+{% block content %}
 
-    <h2>Talaba ma'lumotlari</h2>
+<div class="card">
+    <h1>Talabalar boshqaruv tizimiga xush kelibsiz!</h1>
 
-    <p>F.I.Sh.: __________________</p>
-    <p>Guruh: __________________</p>
-    <p>Fan: Bulutli texnologiyalar</p>
-
-    <h2>PaaS haqida qisqacha ma'lumot</h2>
-
-    <p>
-        PaaS — Platform as a Service, ya'ni
-        platforma xizmat sifatida.
-        U dasturlarni yaratish, sinash,
-        joylashtirish va ishga tushirish
-        imkonini beruvchi bulutli xizmatdir.
+    <p class="subtitle">
+        Ushbu tizim orqali talabalar ma'lumotlari,
+        guruhlari va o‘quv ballarini boshqarishingiz mumkin.
     </p>
 
+    <a href="{{ url_for('add_student') }}" class="btn">
+        + Yangi talaba qo‘shish
+    </a>
+</div>
 
-    <h2>PaaS afzalliklari</h2>
+<div class="stats">
 
-    <ul>
-        <li>Serverni qo‘lda boshqarish talab qilinmaydi.</li>
-        <li>Ilovani tez joylashtirish mumkin.</li>
-        <li>Resurslarni boshqarish oson.</li>
-        <li>Ilovani internet orqali taqdim etish mumkin.</li>
-    </ul>
+    <div class="card">
+        <h3>Jami talabalar</h3>
+        <div class="stat-number">
+            {{ stats.total_students }}
+        </div>
+    </div>
 
-</body>
-</html>
+    <div class="card">
+        <h3>O‘rtacha ball</h3>
+        <div class="stat-number">
+            {{ "%.1f"|format(stats.average_score) }}
+        </div>
+    </div>
+
+</div>
+
+<div class="card">
+    <h2>Tizim imkoniyatlari</h2>
+
+    <p>✓ Talabalar ro‘yxatini ko‘rish</p>
+    <p>✓ Yangi talabalarni qo‘shish</p>
+    <p>✓ Talaba ma'lumotlarini ko‘rish</p>
+    <p>✓ O‘quv ballarini boshqarish</p>
+    <p>✓ Ma'lumotlarni bulutli bazada saqlash</p>
+
+    <br>
+
+    <a href="{{ url_for('students') }}" class="btn">
+        Talabalar ro‘yxatiga o‘tish
+    </a>
+</div>
+
+{% endblock %}

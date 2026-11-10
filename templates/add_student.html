@@ -1,0 +1,70 @@
+
+{% extends "base.html" %}
+
+{% block title %}Talaba qo‘shish | Student Manager{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Yangi talaba qo‘shish</h1>
+
+    <p class="subtitle">
+        Talaba haqidagi ma'lumotlarni quyidagi shaklda kiriting.
+    </p>
+
+    <form method="POST" action="{{ url_for('add_student') }}">
+
+        <label>Talabaning F.I.Sh.</label>
+
+        <input
+            type="text"
+            name="full_name"
+            placeholder="Masalan: Ali Valiyev"
+            maxlength="150"
+            required
+        >
+
+        <label>Guruh raqami</label>
+
+        <input
+            type="text"
+            name="group_name"
+            placeholder="Masalan: 921-24"
+            maxlength="50"
+            required
+        >
+
+        <label>Fan nomi</label>
+
+        <input
+            type="text"
+            name="subject"
+            value="Bulutli texnologiyalar"
+            maxlength="120"
+        >
+
+        <label>Talabaning bali</label>
+
+        <input
+            type="number"
+            name="score"
+            min="0"
+            max="100"
+            value="0"
+            required
+        >
+
+        <button type="submit" class="btn">
+            Talabani saqlash
+        </button>
+
+        <a href="{{ url_for('students') }}" class="btn btn-secondary">
+            Ortga qaytish
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

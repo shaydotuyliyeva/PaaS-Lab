@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+{% block title %}Talaba ma'lumotlari | Student Manager{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Talaba haqida ma'lumot</h1>
+
+    <h2>{{ student.full_name }}</h2>
+
+    <p><strong>Talaba ID:</strong> {{ student.id }}</p>
+
+    <p><strong>F.I.Sh.:</strong> {{ student.full_name }}</p>
+
+    <p><strong>Guruh:</strong> {{ student.group_name }}</p>
+
+    <p><strong>Fan:</strong> {{ student.subject }}</p>
+
+    <p>
+        <strong>Qo‘shilgan sana:</strong>
+        {{ student.created_at.strftime('%d.%m.%Y %H:%M') }}
+    </p>
+
+    <br>
+
+    <h2>Talabaning natijasi</h2>
+
+    <div class="stat-number">
+        {{ student.score }}/100
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h2>Talaba balini yangilash</h2>
+
+    <form
+        method="POST"
+        action="{{ url_for('update_score', student_id=student.id) }}"
+    >
+
+        <label>Yangi ball (0–100)</label>
+
+        <input
+            type="number"
+            name="score"
+            min="0"
+            max="100"
+            value="{{ student.score }}"
+            required
+        >
+
+        <button type="submit" class="btn">
+            Ballni yangilash
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{{ url_for('students') }}" class="btn btn-secondary">
+        Talabalar ro‘yxatiga qaytish
+    </a>
+
+</div>
+
+{% endblock %}

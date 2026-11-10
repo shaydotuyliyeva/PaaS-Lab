@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+
+{% block title %}Talabalar ro‘yxati | Student Manager{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Talabalar ro‘yxati</h1>
+
+    <p class="subtitle">
+        Tizimda ro‘yxatdan o‘tgan barcha talabalar.
+    </p>
+
+    <a href="{{ url_for('add_student') }}" class="btn">
+        + Yangi talaba qo‘shish
+    </a>
+
+</div>
+
+<div class="card">
+
+    {% if students %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>F.I.Sh.</th>
+                <th>Guruh</th>
+                <th>Fan</th>
+                <th>Ball</th>
+                <th>Amallar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+
+                <td>{{ student.full_name }}</td>
+
+                <td>{{ student.group_name }}</td>
+
+                <td>{{ student.subject }}</td>
+
+                <td>
+                    <strong>{{ student.score }}/100</strong>
+                </td>
+
+                <td>
+                    <a
+                        href="{{ url_for('student_detail', student_id=student.id) }}"
+                        class="btn"
+                    >
+                        Ko‘rish
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+
+        <h3>Hozircha talabalar mavjud emas.</h3>
+
+        <p class="subtitle">
+            Birinchi talabani qo‘shish uchun yuqoridagi tugmani bosing.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
