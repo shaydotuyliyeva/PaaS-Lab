@@ -64,6 +64,7 @@ def get_db():
 
 
 @app.route("/")
+@login_required
 def home():
     with get_db() as connection:
         with connection.cursor() as cursor:
