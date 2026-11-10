@@ -1,0 +1,164 @@
+
+{% extends "base.html" %}
+
+{% block title %}Quiz natijasi | Brain Challenge{% endblock %}
+
+{% block content %}
+
+<style>
+    .result-header {
+        text-align: center;
+        padding: 35px 20px;
+        background: #172554;
+        color: white;
+        border-radius: 15px;
+        margin-bottom: 25px;
+    }
+
+    .score-circle {
+        width: 190px;
+        height: 190px;
+        border-radius: 50%;
+        border: 10px solid #22c55e;
+        margin: 25px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        color: #172554;
+    }
+
+    .score-number {
+        font-size: 48px;
+        font-weight: bold;
+    }
+
+    .result-stat {
+        text-align: center;
+        padding: 20px;
+        border-radius: 12px;
+        background: #eff6ff;
+    }
+
+    .result-stat strong {
+        font-size: 28px;
+        color: #2563eb;
+    }
+
+    .result-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 22px;
+    }
+</style>
+
+<div class="result-header">
+
+    <h1>🏆 Test yakunlandi!</h1>
+
+    <p>Natijangiz tayyor. Barakalla!</p>
+
+    <div class="score-circle">
+
+        <div class="score-number">
+            {{ attempt.score }}
+        </div>
+
+        <strong>100 balldan</strong>
+
+    </div>
+
+    {% if attempt.score == 100 %}
+
+        <h2>🎉 Ajoyib! Mukammal natija!</h2>
+
+    {% elif attempt.score >= 80 %}
+
+        <h2>🌟 Juda yaxshi natija!</h2>
+
+    {% elif attempt.score >= 60 %}
+
+        <h2>👏 Yaxshi harakat!</h2>
+
+    {% elif attempt.score >= 40 %}
+
+        <h2>💪 Yana ozgina mashq qiling!</h2>
+
+    {% else %}
+
+        <h2>📚 Taslim bo‘lmang, yana urinib ko‘ring!</h2>
+
+    {% endif %}
+
+</div>
+
+<div class="stats">
+
+    <div class="card result-stat">
+
+        <h3>To‘g‘ri javoblar</h3>
+
+        <strong>
+            {{ attempt.correct_answers }}/{{ attempt.total_questions }}
+        </strong>
+
+    </div>
+
+    <div class="card result-stat">
+
+        <h3>To‘plangan ball</h3>
+
+        <strong>
+            {{ attempt.score }}/100
+        </strong>
+
+    </div>
+
+    <div class="card result-stat">
+
+        <h3>Noto‘g‘ri javoblar</h3>
+
+        <strong>
+            {{ attempt.total_questions - attempt.correct_answers }}
+        </strong>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h2>📊 Natija haqida</h2>
+
+    <p>
+        Siz 10 ta mantiqiy savolning
+        {{ attempt.correct_answers }} tasiga to‘g‘ri javob berdingiz.
+    </p>
+
+    <p>
+        Har bir to‘g‘ri javob uchun 10 ball hisoblandi.
+    </p>
+
+    <p>
+        Ushbu natija shaxsiy kabinetingizga
+        va testlar tarixiga saqlandi.
+    </p>
+
+    <div class="result-actions">
+
+        <a href="{{ url_for('profile') }}" class="btn">
+            Shaxsiy kabinetim
+        </a>
+
+        <a href="{{ url_for('quiz') }}" class="btn btn-secondary">
+            Qayta test ishlash
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

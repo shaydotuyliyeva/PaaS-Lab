@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+
+{% block title %}Ro‘yxatdan o‘tish | Student Manager{% endblock %}
+
+{% block content %}
+
+<div class="card" style="max-width:600px; margin:auto;">
+
+    <h1>🎓 Ro‘yxatdan o‘tish</h1>
+
+    <p class="subtitle">
+        O‘z hisobingizni yarating va mantiqiy testlarda qatnashing.
+    </p>
+
+    <form method="POST" action="{{ url_for('register') }}">
+
+        <label>To‘liq ism va familiya</label>
+        <input
+            type="text"
+            name="full_name"
+            placeholder="F.I.Sh. kiriting"
+            maxlength="150"
+            required
+        >
+
+        <label>Guruh raqami</label>
+        <input
+            type="text"
+            name="group_name"
+            placeholder="Masalan: 921-24"
+            maxlength="50"
+            required
+        >
+
+        <label>Email manzili</label>
+        <input
+            type="email"
+            name="email"
+            placeholder="example@gmail.com"
+            maxlength="255"
+            required
+        >
+
+        <label>Parol</label>
+        <input
+            type="password"
+            name="password"
+            placeholder="Kamida 8 ta belgi"
+            minlength="8"
+            required
+        >
+
+        <label>Parolni takrorlang</label>
+        <input
+            type="password"
+            name="confirm_password"
+            placeholder="Parolni qayta kiriting"
+            minlength="8"
+            required
+        >
+
+        <button type="submit" class="btn">
+            Ro‘yxatdan o‘tish
+        </button>
+
+    </form>
+
+    <br>
+
+    <p>
+        Hisobingiz bormi?
+        <a href="{{ url_for('login') }}">Tizimga kiring</a>
+    </p>
+
+</div>
+
+{% endblock %}

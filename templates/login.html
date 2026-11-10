@@ -1,0 +1,49 @@
+
+{% extends "base.html" %}
+
+{% block title %}Tizimga kirish | Student Manager{% endblock %}
+
+{% block content %}
+
+<div class="card" style="max-width:500px; margin:auto;">
+
+    <h1>🔐 Tizimga kirish</h1>
+
+    <p class="subtitle">
+        O‘z hisobingizga kirib, testlarni ishlashni boshlang.
+    </p>
+
+    <form method="POST" action="{{ url_for('login') }}">
+
+        <label>Email manzili</label>
+        <input
+            type="email"
+            name="email"
+            placeholder="Email manzilingiz"
+            required
+        >
+
+        <label>Parol</label>
+        <input
+            type="password"
+            name="password"
+            placeholder="Parolingiz"
+            required
+        >
+
+        <button type="submit" class="btn">
+            Kirish
+        </button>
+
+    </form>
+
+    <br>
+
+    <p>
+        Hisobingiz yo‘qmi?
+        <a href="{{ url_for('register') }}">Ro‘yxatdan o‘ting</a>
+    </p>
+
+</div>
+
+{% endblock %}

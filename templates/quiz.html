@@ -1,0 +1,132 @@
+
+{% extends "base.html" %}
+
+{% block title %}Mantiqiy Quiz | Brain Challenge{% endblock %}
+
+{% block content %}
+
+<style>
+    .quiz-intro {
+        text-align: center;
+        padding: 35px 20px;
+        background: #172554;
+        color: white;
+        border-radius: 15px;
+        margin-bottom: 25px;
+    }
+
+    .quiz-intro p {
+        color: #cbd5e1;
+        margin-top: 8px;
+    }
+
+    .question-card {
+        margin-bottom: 20px;
+        border-left: 5px solid #2563eb;
+    }
+
+    .question-number {
+        color: #2563eb;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .quiz-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 13px;
+        margin: 10px 0;
+        border: 1px solid #e2e8f0;
+        border-radius: 9px;
+        cursor: pointer;
+        font-weight: normal;
+        transition: 0.2s;
+    }
+
+    .quiz-option:hover {
+        background: #eff6ff;
+        border-color: #2563eb;
+    }
+
+    .quiz-option input {
+        width: auto;
+        margin: 4px 0 0;
+        accent-color: #2563eb;
+    }
+
+    .quiz-submit {
+        width: 100%;
+        padding: 15px;
+        font-size: 17px;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="quiz-intro">
+    <h1>🧠 Brain Challenge</h1>
+
+    <p>
+        Qiziqarli mantiqiy savollar orqali
+        topqirligingizni sinab ko‘ring!
+    </p>
+
+    <h3>10 ta savol | Maksimal 100 ball</h3>
+
+    <p>Har bir to‘g‘ri javob uchun 10 ball</p>
+</div>
+
+<form method="POST" action="{{ url_for('quiz') }}"
+      autocomplete="off">
+
+    {% for question in questions %}
+
+    <div class="card question-card">
+
+        <div class="question-number">
+            SAVOL {{ loop.index }} / 10
+        </div>
+
+        <h3>{{ question.text }}</h3>
+
+        {% for option in question.options %}
+
+        <label class="quiz-option">
+
+            <input
+                type="radio"
+                name="{{ question.id }}"
+                value="{{ option[0] }}"
+                required
+            >
+
+            <span>
+                <strong>{{ option[0] }}.</strong>
+                {{ option[1] }}
+            </span>
+
+        </label>
+
+        {% endfor %}
+
+    </div>
+
+    {% endfor %}
+
+    <div class="card">
+        <h3>🏆 Testni yakunlashga tayyormisiz?</h3>
+
+        <p class="subtitle">
+            Barcha 10 ta savolga javob berganingizdan
+            so‘ng natijangiz avtomatik hisoblanadi.
+        </p>
+
+        <button type="submit" class="btn quiz-submit">
+            Testni yakunlash
+        </button>
+    </div>
+
+</form>
+
+{% endblock %}

@@ -175,11 +175,35 @@
     <div class="navbar">
         <div class="logo">🎓 Student Manager</div>
 
-        <nav>
-            <a href="{{ url_for('home') }}">Bosh sahifa</a>
-            <a href="{{ url_for('students') }}">Talabalar</a>
-            <a href="{{ url_for('add_student') }}">Talaba qo‘shish</a>
-        </nav>
+       
+<nav>
+    <a href="{{ url_for('home') }}">Bosh sahifa</a>
+
+    {% if session.get('student_id') %}
+
+        <a href="{{ url_for('profile') }}">Shaxsiy kabinet</a>
+
+        <a href="{{ url_for('students') }}">Talabalar</a>
+
+        <form method="POST"
+              action="{{ url_for('logout') }}"
+              style="display:inline;">
+
+            <button type="submit" class="btn btn-secondary">
+                Chiqish
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <a href="{{ url_for('login') }}">Kirish</a>
+
+        <a href="{{ url_for('register') }}">Ro‘yxatdan o‘tish</a>
+
+    {% endif %}
+</nav>
+
     </div>
 </header>
 

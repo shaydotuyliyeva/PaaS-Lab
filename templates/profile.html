@@ -1,0 +1,112 @@
+
+{% extends "base.html" %}
+
+{% block title %}Shaxsiy kabinet | Student Manager{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>👋 Xush kelibsiz, {{ student.full_name }}!</h1>
+
+    <p class="subtitle">
+        Bu sizning shaxsiy talaba kabinetingiz.
+    </p>
+
+</div>
+
+<div class="stats">
+
+    <div class="card">
+        <h3>👤 F.I.Sh.</h3>
+        <strong>{{ student.full_name }}</strong>
+    </div>
+
+    <div class="card">
+        <h3>🎓 Guruh</h3>
+        <strong>{{ student.group_name }}</strong>
+    </div>
+
+    <div class="card">
+        <h3>🏆 Joriy ball</h3>
+        <div class="stat-number">
+            {{ student.score }}/100
+        </div>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h2>🧠 Testlarim tarixi</h2>
+
+    {% if attempts %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Test №</th>
+                <th>To‘g‘ri javob</th>
+                <th>Ball</th>
+                <th>Sana</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for attempt in attempts %}
+
+            <tr>
+                <td>{{ attempt.id }}</td>
+
+                <td>
+                    {{ attempt.correct_answers }}/10
+                </td>
+
+                <td>
+                    <strong>{{ attempt.score }}/100</strong>
+                </td>
+
+                <td>
+                    {{ attempt.completed_at.strftime('%d.%m.%Y %H:%M') }}
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    {% else %}
+
+        <p class="subtitle">
+            Siz hali test ishlamagansiz.
+            Birinchi testingizni tez orada boshlashingiz mumkin!
+        </p>
+
+    {% endif %}
+
+</div>
+
+<div class="card">
+
+    <h2>🚀 Bilimingizni sinab ko‘ring!</h2>
+
+    <p class="subtitle">
+        Mantiqiy fikrlash va topqirlik bo‘yicha
+        10 ta qiziqarli savol sizni kutmoqda.
+    </p>
+
+    <a href="{{ url_for('quiz') }}" class="btn">
+    🧠 Testni boshlash
+</a>
+
+</div>
+
+<form method="POST" action="{{ url_for('logout') }}">
+    <button type="submit" class="btn btn-secondary">
+        Hisobdan chiqish
+    </button>
+</form>
+
+{% endblock %}
