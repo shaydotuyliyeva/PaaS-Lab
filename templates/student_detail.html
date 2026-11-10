@@ -34,36 +34,21 @@
 
 </div>
 
+
 <div class="card">
 
-    <h2>Talaba balini yangilash</h2>
+    <h2>🧠 Bilimingizni sinab ko‘ring!</h2>
 
-    <form
-        method="POST"
-        action="{{ url_for('update_score', student_id=student.id) }}"
-    >
+    <p class="subtitle">
+        Yangi test ishlash orqali ballingizni oshiring.
+    </p>
 
-        <label>Yangi ball (0–100)</label>
+    <a href="{{ url_for('quiz') }}" class="btn">
+        Testni boshlash
+    </a>
 
-        <input
-            type="number"
-            name="score"
-            min="0"
-            max="100"
-            value="{{ student.score }}"
-            required
-        >
-
-        <button type="submit" class="btn">
-            Ballni yangilash
-        </button>
-
-    </form>
-
-    <br>
-
-    <a href="{{ url_for('students') }}" class="btn btn-secondary">
-        Talabalar ro‘yxatiga qaytish
+    <a href="{{ url_for('profile') }}" class="btn btn-secondary">
+        Shaxsiy kabinet
     </a>
 
 </div>

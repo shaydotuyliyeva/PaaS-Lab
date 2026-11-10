@@ -82,8 +82,31 @@ def home():
     )
 
 
+
 @app.route("/students")
+@login_required
 def students():
+
+    student_id = session["student_id"]
+
+    with get_db() as connection:
+        with connection.cursor() as cursor:
+
+            cursor.execute("""
+                SELECT *
+                FROM students
+                WHERE id = %s
+            """, (student_id,))
+
+            student = cursor.fetchone()
+
+    student_list = [student] if student else []
+
+    return render_template(
+        "students.html",
+        students=student_list
+    )
+
     with get_db() as connection:
         with connection.cursor() as cursor:
             cursor.execute("""
@@ -99,8 +122,17 @@ def students():
     )
 
 
+
 @app.route("/students/add", methods=["GET", "POST"])
+@login_required
 def add_student():
+
+    flash(
+        "Yangi hisob yaratish uchun ro'yxatdan o'tish sahifasidan foydalaning!"
+    )
+
+    return redirect(url_for("profile"))
+
     if request.method == "POST":
 
         full_name = request.form.get(
@@ -148,8 +180,33 @@ def add_student():
     return render_template("add_student.html")
 
 
+
 @app.route("/students/<int:student_id>")
+@login_required
 def student_detail(student_id):
+
+    if student_id != session["student_id"]:
+        abort(403)
+
+    with get_db() as connection:
+        with connection.cursor() as cursor:
+
+            cursor.execute("""
+                SELECT *
+                FROM students
+                WHERE id = %s
+            """, (student_id,))
+
+            student = cursor.fetchone()
+
+    if student is None:
+        abort(404)
+
+    return render_template(
+        "student_detail.html",
+        student=student
+    )
+
     with get_db() as connection:
         with connection.cursor() as cursor:
             cursor.execute("""
@@ -169,8 +226,13 @@ def student_detail(student_id):
     )
 
 
+
 @app.route("/students/<int:student_id>/score", methods=["POST"])
+@login_required
 def update_score(student_id):
+
+    abort(403)
+
     try:
         score = int(request.form.get("score", ""))
     except ValueError:
